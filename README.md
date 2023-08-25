@@ -45,7 +45,6 @@
 - [x] Estilizar página decentemente 
 
 # Banco de dados
-# Funções da página de dados do assistido
 - [ ] montar o JSON e ajustar o json-server
 # Funções da página de login
 - [ ] Acertar nome e login redireciona para página com tabela dos assistidos
