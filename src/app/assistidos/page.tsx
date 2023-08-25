@@ -1,8 +1,13 @@
+'use client'
+
 import Header from "@/components/Header";
 import Input from "@/components/Input";
-import Table from "@/components/Table";
+import TableRow from "@/components/TableRow";
+import { useContext } from "react";
+import { AppContext } from "@/context/AppContext";
 
 export default function Beneficiaries() {
+  const { beneficiaries } = useContext(AppContext)
   return (
     <>
       <Header />
@@ -22,7 +27,25 @@ export default function Beneficiaries() {
             Pesquisar
           </button>
         </div>
-        <Table />
+        <table className="my-8 border-collapse border-2 border-[var(--bg)]">
+            <thead className="bg-[var(--dark)] text-[var(--medium)]">
+                <tr>
+                    <th className="border border-[var(--bg)] w-300 py-1">
+                        Nome
+                    </th>
+                    <th className="border border-[var(--bg)] w-20 py-2 px-4">
+                        Nascimento
+                    </th>
+                    <th className="border border-[var(--bg)] py-2 px-4">
+                        X
+                    </th>
+                </tr>
+            </thead>
+            {beneficiaries.map((beneficiary) => (
+              <TableRow birth={beneficiary.nascimento} name={beneficiary.nome} id={beneficiary.id} key={beneficiary.id} />
+            ))}
+          
+        </table>
       </main>
     </>
   );

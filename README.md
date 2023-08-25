@@ -45,11 +45,10 @@
 - [x] Estilizar página decentemente 
 
 # Banco de dados
-- [ ] montar o JSON e ajustar o json-server
-# Funções da página de login
-- [ ] Acertar nome e login redireciona para página com tabela dos assistidos
+- [x] montar o JSON e ajustar o json-server
 
 # Funções da página inicial
+- [x] Montar tabela com os dados do banco de dados
 - [ ] Ao clicar na linha da tabela redireciona para página do assistido através do id
 - [ ] Deletar linha da tabela deletando do banco de dados
 
@@ -60,3 +59,6 @@
 - [ ] definir campos required
 - [ ] definir lógicas de campos que aparecem quando necessários
 - [ ] definir lógicas de envio para o banco de dados
+
+# Funções da página de login
+- [ ] Acertar nome e login redireciona para página com tabela dos assistidos

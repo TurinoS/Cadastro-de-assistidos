@@ -1,6 +1,7 @@
 {
     "assistidos": [
         {
+        "id": 1,
         "nome": "João Silva",
         "telefone": "(11) 1234-5678",
         "RG": "1234567",
@@ -30,6 +31,7 @@
         ]
         },
         {
+        "id": 2,
         "nome": "Maria Souza",
         "telefone": "(21) 5555-1234",
         "RG": "9876543",
