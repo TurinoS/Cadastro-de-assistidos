@@ -1,0 +1,47 @@
+{
+    "assistidos": [
+        {
+        "nome": "João Silva",
+        "telefone": "(11) 1234-5678",
+        "RG": "1234567",
+        "CPF": "123.456.789-00",
+        "cadastroUnico": "CU12345",
+        "nascimento": "1980-05-15",
+        "endereco": "Rua Principal, 123",
+        "nomeDaMae": "Maria Silva",
+        "nomeDoPai": "José Silva",
+        "estadoCivil": "Casado",
+        "conjuge": {
+            "nome": "Maria Silva",
+            "telefone": "(11) 9876-5432",
+            "nascimento": "1982-08-20"
+        },
+        "dependentes": [
+            {
+            "nome": "Ana Silva",
+            "telefone": "(11) 5555-5555",
+            "nascimento": "2010-03-10"
+            },
+            {
+            "nome": "Pedro Silva",
+            "telefone": "(11) 7777-7777",
+            "nascimento": "2015-12-05"
+            }
+        ]
+        },
+        {
+        "nome": "Maria Souza",
+        "telefone": "(21) 5555-1234",
+        "RG": "9876543",
+        "CPF": "987.654.321-00",
+        "cadastroUnico": "CU54321",
+        "nascimento": "1985-11-25",
+        "endereco": "Avenida Secundária, 456",
+        "nomeDaMae": "Ana Souza",
+        "nomeDoPai": "Paulo Souza",
+        "estadoCivil": "Solteira",
+        "conjuge": null,
+        "dependentes": []
+        }
+    ]
+}

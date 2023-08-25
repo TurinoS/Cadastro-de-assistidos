@@ -41,7 +41,7 @@
 - - estado civil
 - - conjuge - nome - telefone- nscimento
 - - dependente - nome - telefone- nscimento
-- [x] Criar botao de submit
+- [x] Criar botao de submit             
 - [x] Estilizar página decentemente 
 
 # Banco de dados

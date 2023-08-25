@@ -90,19 +90,19 @@ export default function Register() {
             <Input
               type="text"
               label={`dependentName`}
-              innerText="Nome do cônjuge"
+              innerText="Nome do dependente"
               placeholder=""
             />
             <Input
               type="phone"
               label={`dependentPhone`}
-              innerText="Telefone do cônjuge"
+              innerText="Telefone do dependente"
               placeholder=""
             />
             <Input
               type="date"
               label={`dependentBirth`}
-              innerText="Data de nascimento do cônjuge"
+              innerText="Data de nascimento do dependente"
               placeholder=""
             />
           </div>
