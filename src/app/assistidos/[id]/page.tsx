@@ -1,25 +1,38 @@
+'use client'
+
 import Header from "@/components/Header";
 import InfoField from "@/components/InfoField";
+import { useContext } from "react";
+import { AppContext } from "@/context/AppContext";
 
 interface BeneficiaryProps {
-  name: string;
-  info: string;
+  params: {
+    id: string;
+  };
 }
 
-export default function Beneficiary() {
+export default function Beneficiary({ params }: BeneficiaryProps) {
+  const { beneficiaries } = useContext(AppContext);
+
+  const beneficiary = beneficiaries.find((b) => b.id === Number(params.id));
+
+  if (!beneficiary) {
+    return <div>Assistido não encontrado.</div>;
+  }
+
   return (
     <>
       <Header />
       <main className="min-h-screen bg-[var(--light)] p-4">
         <div className="flex justify-center items-center gap-6 pb-6">
           <h2 className="text-4xl font-bold text-center text-[var(--dark)]">
-            Paulo Turino Silva
+            {beneficiary.nome}
           </h2>
           <p
             className="bg-[var(--bg)] py-2 px-4 rounded-3xl text-2xl"
             style={{ boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.25)" }}
           >
-            06/11/1994
+            {beneficiary.nascimento}
           </p>
         </div>
 
@@ -27,67 +40,70 @@ export default function Beneficiary() {
           <div className="p-4 bg-[var(--light)] w-1/3 p-2 border-2 border-[var(--white)]">
             <h3 className="font-bold text-2xl pb-2">Contatos</h3>
             <div className="flex gap-2 flex-wrap">
-              <InfoField name="Telefone" info="(18) 99666-7708" />
+              <InfoField name="Telefone" info={beneficiary.telefone} />
             </div>
           </div>
           <div className="p-4 bg-[var(--light)] w-1/3 p-2 border-2 border-[var(--white)]">
             <h3 className="font-bold text-2xl pb-2">Documentos</h3>
             <div className="flex gap-2 flex-wrap">
-              <InfoField name="RG" info="48.298.451-x" />
-              <InfoField name="CPF" info="418.078.668-07" />
-              <InfoField name="CU" info="798.458.264-90" />
+              <InfoField name="RG" info={beneficiary.RG} />
+              <InfoField name="CPF" info={beneficiary.CPF} />
+              <InfoField name="CU" info={beneficiary.cadastroUnico} />
             </div>
           </div>
           <div className="p-4 bg-[var(--light)] w-1/3 p-2 border-2 border-[var(--white)]">
             <h3 className="font-bold text-2xl pb-2">Pais</h3>
             <div className="flex gap-2 flex-wrap">
-              <InfoField
-                name="Nome da mãe"
-                info="Maria Regina Turino Da Silva"
-              />
-              <InfoField name="Nome do pai" info="Luiz Carlos da Silva" />
+              <InfoField name="Nome da mãe" info={beneficiary.nomeDaMae} />
+              <InfoField name="Nome do pai" info={beneficiary.nomeDoPai} />
             </div>
           </div>
           <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
             <h3 className="font-bold text-2xl pb-2">Endereço</h3>
             <div className="flex gap-2 flex-wrap">
-              <InfoField name="CEP" info="19-020-520" />
-              <InfoField name="Rua" info="12 de Outubro" />
-              <InfoField name="nº" info="1153" />
-              <InfoField
-                name="Bairro"
-                info="Jardim Bela Vista do alto da compadecida"
-              />
-              <InfoField name="Cidade" info="Presidente Prudente" />
+              <InfoField name="CEP" info={beneficiary.CEP} />
+              <InfoField name="Rua" info={beneficiary.rua} />
+              <InfoField name="nº" info={beneficiary.n} />
+              <InfoField name="Bairro" info={beneficiary.bairro} />
+              <InfoField name="Cidade" info={beneficiary.cidade} />
             </div>
           </div>
           <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
             <h3 className="font-bold text-2xl pb-2">Estado civil</h3>
             <div className="flex gap-2 flex-wrap">
-              <InfoField name="Estado civil" info="Casado" />
-              <InfoField
-                name="Nome (cônjuge)"
-                info="Giovana Miti Aibara Paschoal"
-              />
-              <InfoField name="Telefone (cônjuge)" info="(18) 99666-7708" />
-              <InfoField name="Data de nascimento" info="05/25/1994" />
+              <InfoField name="Estado civil" info={beneficiary.estadoCivil} />
+              {beneficiary.estadoCivil === "Casado" && (
+                <>
+                  <InfoField
+                    name="Nome (cônjuge)"
+                    info={beneficiary.conjuge.nome}
+                  />
+                  <InfoField
+                    name="Telefone (cônjuge)"
+                    info={beneficiary.conjuge.telefone}
+                  />
+                  <InfoField
+                    name="Data de nascimento"
+                    info={beneficiary.conjuge.nascimento}
+                  />
+                </>
+              )}
             </div>
           </div>
-          <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
-            <h3 className="font-bold text-2xl pb-2">Dependentes</h3>
-            <div className="flex flex-col gap-2 flex-wrap">
-              <div className="flex gap-2 flex-wrap">
-                <InfoField name="Nome" info="João Pedro Alo" />
-                <InfoField name="Telefone" info="(18) 99666-7708" />
-                <InfoField name="Nascimento" info="04/11/2020" />
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <InfoField name="Nome" info="João Pedro Alo" />
-                <InfoField name="Telefone" info="(18) 99666-7708" />
-                <InfoField name="Nascimento" info="04/11/2020" />
+          {beneficiary.dependentes && (
+            <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
+              <h3 className="font-bold text-2xl pb-2">Dependentes</h3>
+              <div className="flex flex-col gap-2 flex-wrap">
+                {beneficiary.dependentes.map((dependente, index) => (
+                  <div key={index} className="flex gap-2 flex-wrap">
+                    <InfoField name="Nome" info={dependente.nome} />
+                    <InfoField name="Telefone" info={dependente.telefone} />
+                    <InfoField name="Nascimento" info={dependente.nascimento} />
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
         <div className="p-4 w-full p-2 border-2 border-[var(--white)]">
           <h3 className="font-bold text-3xl pb-2 text-center">Histórico</h3>

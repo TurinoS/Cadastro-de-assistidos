@@ -49,11 +49,11 @@
 
 # Funções da página inicial
 - [x] Montar tabela com os dados do banco de dados
-- [ ] Ao clicar na linha da tabela redireciona para página do assistido através do id
+- [x] Ao clicar na linha da tabela redireciona para página do assistido através do id
 - [ ] Deletar linha da tabela deletando do banco de dados
 
 # Funções da página de dados do assistido
-- [ ] receber dados do banco de dados e imprimir de acordo com o id na url
+- [x] receber dados do banco de dados e imprimir de acordo com o id na url
 
 # Funções da página de cadastro
 - [ ] definir campos required

@@ -10,7 +10,11 @@ type Beneficiary = {
   CPF: string;
   cadastroUnico: string;
   nascimento: string;
-  endereco: string;
+  CEP: string;
+  rua: string,
+        n: string,
+        bairro: string,
+        cidade: string,
   nomeDaMae: string;
   nomeDoPai: string;
   estadoCivil: string;
