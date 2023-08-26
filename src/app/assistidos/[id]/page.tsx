@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Header from "@/components/Header";
 import InfoField from "@/components/InfoField";
@@ -107,48 +107,22 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
         </div>
         <div className="p-4 w-full p-2 border-2 border-[var(--white)]">
           <h3 className="font-bold text-3xl pb-2 text-center">Histórico</h3>
-          <div className="flex justify-between gap-4">
+          <div className="grid grid-cols-2 gap-4" style={{ gridTemplateColumns: "2fr 1fr" }}>
             <div className="flex flex-col gap-2">
-              <div className="flex gap-1">
-                <h4 className="p-4 bg-[var(--white)] rounded-xl font-bold">
-                  24/08/2023
-                </h4>
-                <p className="p-4 bg-[var(--white)] rounded-xl">
-                  Recebeu uma cesta básica
-                </p>
-              </div>
-              <div className="flex gap-1">
-                <h4 className="p-4 bg-[var(--white)] rounded-xl font-bold">
-                  24/08/2023
-                </h4>
-                <p className="p-4 bg-[var(--white)] rounded-xl">
-                  Recebeu uma cesta básica
-                </p>
-              </div>
-              <div className="flex gap-1">
-                <h4 className="p-4 bg-[var(--white)] rounded-xl font-bold">
-                  24/08/2023
-                </h4>
-                <p className="p-4 bg-[var(--white)] rounded-xl">
-                  Recebeu uma cesta básica comprou comida correu atras do gato
-                  comeu um pedaço de genipapo surrou a galinha bateu no marreco,
-                  pulou do puleiro no pe do cavalo levou um coice criou um galo
-                </p>
-              </div>
-              <div className="flex gap-1">
-                <h4 className="p-4 bg-[var(--white)] rounded-xl font-bold">
-                  24/08/2023
-                </h4>
-                <p className="p-4 bg-[var(--white)] rounded-xl">
-                  Recebeu uma cesta básica comprou comida correu atras do gato
-                  comeu um pedaço de genipapo surrou a galinha bateu no marreco,
-                  pulou do puleiro no pe do cavalo levou um coice criou um galo
-                </p>
-              </div>
+              {beneficiary.historico.map((atendimento, index) => (
+                <div className="flex gap-1" key={index}>
+                  <h4 className="p-4 bg-[var(--white)] rounded-xl font-bold">
+                    {atendimento.data.replace(/-/g, '/')}
+                  </h4>
+                  <p className="p-4 bg-[var(--white)] rounded-xl">
+                    {atendimento.descricao}
+                  </p>
+                </div>
+              ))}
             </div>
             <form
-              className="p-2 bg-[var(--dark)] rounded-lg"
-              style={{ height: "402px" }}
+              className="p-2 bg-[var(--dark)] rounded-lg w-1/3 flex flex-col gap-2"
+              style={{ height: "402px", width: "335px" }}
             >
               <div className="flex flex-col gap-1">
                 <label
@@ -167,13 +141,12 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
               <textarea
                 placeholder="Descreva o atendimento"
                 rows={10}
-                className="px-4 py-2 rounded-xl mt-2"
-                style={{ width: "300px" }}
+                className="px-4 py-2 rounded-xl"
               />
               <input
                 type="submit"
                 value="Adicionar"
-                className="px-4 py-2 w-full border-2 border-[var(--dark)] rounded-xl font-bold bg-[var(--medium)] text-[var(--dark)] hover:bg-[var(--dark)] hover:text-[var(--orange)] hover:border-[var(--orange)] transition duration-400"
+                className="px-4 py-2 border-2 border-[var(--dark)] rounded-xl font-bold bg-[var(--medium)] text-[var(--dark)] hover:bg-[var(--dark)] hover:text-[var(--orange)] hover:border-[var(--orange)] transition duration-400"
               />
             </form>
           </div>

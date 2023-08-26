@@ -30,6 +30,12 @@ type Beneficiary = {
       nascimento: string;
     }
   ];
+  historico: [
+    {
+        data: string;
+        descricao: string;
+    }
+  ];
 };
 
 type AppContextType = {
