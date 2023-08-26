@@ -4,6 +4,7 @@ interface InputProps {
   placeholder: string;
   innerText: string;
   className?: string;
+  classNameInput?: string;
 }
 
 export default function Input({
@@ -11,7 +12,8 @@ export default function Input({
   label,
   placeholder,
   innerText,
-  className = "flex flex-col gap-1"
+  className = "flex flex-col gap-1",
+  classNameInput
 }: InputProps) {
   return (
     <div className={`${className}`}>
@@ -19,7 +21,7 @@ export default function Input({
         {innerText}
       </label>
       <input
-        className={`px-4 py-2 rounded-xl`}
+        className={`px-4 py-2 rounded-xl ${classNameInput}`}
         style={{ boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.25)" }}
         type={type}
         name={label}

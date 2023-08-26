@@ -39,11 +39,13 @@ type Beneficiary = {
 };
 
 type AppContextType = {
-    beneficiaries: Beneficiary[],
+    beneficiaries: Beneficiary[];
+    removeBeneficiary: (id: number) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
-    beneficiaries: []
+    beneficiaries: [],
+    removeBeneficiary: () => {},
 });
 
 export function AppcontextProvider({ children }: { children: ReactNode }) {
@@ -58,5 +60,19 @@ export function AppcontextProvider({ children }: { children: ReactNode }) {
         fetchData();
       }, []);
 
-  return <AppContext.Provider value={{ beneficiaries }}>{children}</AppContext.Provider>;
+      const removeBeneficiary = async (id: number) => {
+        try {
+          await fetch(`http://localhost:5000/assistidos/${id}`, {
+            method: "DELETE",
+          });
+    
+          setBeneficiaries((prevBeneficiaries) =>
+            prevBeneficiaries.filter((beneficiary) => beneficiary.id !== id)
+          );
+        } catch (error) {
+          console.error("Erro ao remover o beneficiário:", error);
+        }
+      };
+
+  return <AppContext.Provider value={{ beneficiaries, removeBeneficiary }}>{children}</AppContext.Provider>;
 }

@@ -12,13 +12,14 @@ export default function Beneficiaries() {
     <>
       <Header />
       <main className="flex min-h-screen flex-col items-center p-8">
-        <div className="font-bold bg-[var(--medium)] text-[var(--dark)] rounded-xl flex gap-4 pl-4 pr-2 py-2">
+        <div className="font-bold bg-[var(--medium)] text-[var(--dark)] rounded-xl grid grid-cols-2 gap-4 pl-4 pr-2 py-2 w-3/5" style={{ gridTemplateColumns: "3fr 1fr" }}>
           <Input
             type="text"
             innerText="Pesquisar:"
             label="name"
             placeholder="Digite o nome do assistido"
-            className="flex gap-4 items-center"
+            className="flex gap-4 items-center w-full"
+            classNameInput="w-full"
           />
           <button
             className="rounded-xl font-bold bg-[var(--dark)] text-[var(--light)] py-2 px-4 hover:text-[var(--orange)] transition duration-400 hover:scale-105"
@@ -27,7 +28,7 @@ export default function Beneficiaries() {
             Pesquisar
           </button>
         </div>
-        <table className="my-8 border-collapse border-2 border-[var(--bg)]">
+        <table className="my-8 border-collapse border-2 border-[var(--bg)] w-3/5">
             <thead className="bg-[var(--dark)] text-[var(--medium)]">
                 <tr>
                     <th className="border border-[var(--bg)] w-300 py-1">
@@ -36,13 +37,16 @@ export default function Beneficiaries() {
                     <th className="border border-[var(--bg)] w-20 py-2 px-4">
                         Nascimento
                     </th>
+                    <th className="border border-[var(--bg)] w-26 py-2 px-4">
+                        CPF
+                    </th>
                     <th className="border border-[var(--bg)] py-2 px-4">
                         X
                     </th>
                 </tr>
             </thead>
             {beneficiaries.map((beneficiary) => (
-              <TableRow birth={beneficiary.nascimento} name={beneficiary.nome} id={beneficiary.id} key={beneficiary.id} />
+              <TableRow birth={beneficiary.nascimento} name={beneficiary.nome} id={beneficiary.id} CPF={beneficiary.CPF} key={beneficiary.id} />
             ))}
           
         </table>

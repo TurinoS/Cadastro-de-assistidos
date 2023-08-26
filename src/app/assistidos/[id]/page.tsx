@@ -90,7 +90,7 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
               )}
             </div>
           </div>
-          {beneficiary.dependentes && (
+          {beneficiary.dependentes.length > 0 && (
             <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
               <h3 className="font-bold text-2xl pb-2">Dependentes</h3>
               <div className="flex flex-col gap-2 flex-wrap">
