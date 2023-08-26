@@ -61,7 +61,7 @@ export function AppcontextProvider({ children }: { children: ReactNode }) {
       const data = await fetch(`http://localhost:5000/assistidos`);
       const dataJason = await data.json();
       setBeneficiaries(dataJason);
-      setAllBeneficiaries(dataJason)
+      setAllBeneficiaries(dataJason);
     }
     fetchData();
   }, []);

@@ -1,7 +1,13 @@
+"use client";
+
 import Header from "@/components/Header";
 import Input from "@/components/Input";
+import { useState } from "react";
 
 export default function Register() {
+  const [dependents, setDependents] = useState("0");
+  const [civilState, setCivilState] = useState("");
+
   return (
     <>
       <Header />
@@ -9,7 +15,12 @@ export default function Register() {
         <form className="flex flex-col gap-x-4">
           <h2 className="text-3xl font-bold mb-2">Dados</h2>
           <div className="flex flex-wrap gap-x-4">
-            <Input type="text" label="name" innerText="Nome" placeholder="" />
+            <Input
+              type="text"
+              label="name"
+              innerText="Nome"
+              placeholder="Nome"
+            />
             <Input
               type="date"
               label="birth"
@@ -20,23 +31,54 @@ export default function Register() {
               type="phone"
               label="phone"
               innerText="Telefone"
-              placeholder=""
+              placeholder="(18) 99999-9999"
             />
-            <Input type="number" label="RG" innerText="RG" placeholder="" />
-            <Input type="number" label="CPF" innerText="CPF" placeholder="" />
-            <Input type="number" label="CU" innerText="CU" placeholder="" />
+            <Input
+              type="number"
+              label="RG"
+              innerText="RG"
+              placeholder="12.345.678-9"
+            />
+            <Input
+              type="number"
+              label="CPF"
+              innerText="CPF"
+              placeholder="123.456.789-00"
+            />
+            <Input
+              type="number"
+              label="CU"
+              innerText="CU"
+              placeholder="CU12345"
+            />
           </div>
 
           <h2 className="text-3xl font-bold mb-2 mt-10">Endereço</h2>
           <div className="flex flex-wrap gap-x-4">
-            <Input type="number" label="CEP" innerText="CEP" placeholder="" />
-            <Input type="text" label="street" innerText="Rua" placeholder="" />
-            <Input type="number" label="house" innerText="nº" placeholder="" />
+            <Input
+              type="number"
+              label="CEP"
+              innerText="CEP"
+              placeholder="12.345-678"
+            />
+            <Input
+              type="text"
+              label="street"
+              innerText="Rua"
+              placeholder="Rua Prudente de Moraes"
+            />
+            <Input type="text" label="house" innerText="nº" placeholder="712" />
             <Input
               type="text"
               label="neighborhood"
               innerText="Bairro"
-              placeholder=""
+              placeholder="Vila Maristela"
+            />
+            <Input
+              type="text"
+              label="city"
+              innerText="Cidade"
+              placeholder="Presidente Prudente"
             />
           </div>
 
@@ -47,6 +89,7 @@ export default function Register() {
               defaultValue="selecione"
               className="px-4 py-2 rounded-xl w-1/5"
               style={{ boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.25)" }}
+              onChange={(e) => setCivilState(e.target.value)}
             >
               <option value="selecione" disabled>
                 Selecione
@@ -57,26 +100,28 @@ export default function Register() {
               <option value="viuvo">Viúvo(a)</option>
             </select>
           </div>
-          <div className="flex flex-wrap gap-x-4">
-            <Input
-              type="text"
-              label="spouseName"
-              innerText="Nome do cônjuge"
-              placeholder=""
-            />
-            <Input
-              type="phone"
-              label="spousePhone"
-              innerText="Telefone do cônjuge"
-              placeholder=""
-            />
-            <Input
-              type="date"
-              label="spouseBirth"
-              innerText="Data de nascimento do cônjuge"
-              placeholder=""
-            />
-          </div>
+          {civilState === "casado" && (
+            <div className="flex flex-wrap gap-x-4">
+              <Input
+                type="text"
+                label="spouseName"
+                innerText="Nome do cônjuge"
+                placeholder="Nome"
+              />
+              <Input
+                type="phone"
+                label="spousePhone"
+                innerText="Telefone do cônjuge"
+                placeholder="(18) 99999-9999"
+              />
+              <Input
+                type="date"
+                label="spouseBirth"
+                innerText="Data de nascimento do cônjuge"
+                placeholder=""
+              />
+            </div>
+          )}
 
           <h2 className="text-3xl font-bold mb-2 mt-10">Dependentes</h2>
           <Input
@@ -84,28 +129,41 @@ export default function Register() {
             label="dependents"
             innerText="Número de depedentes"
             placeholder=""
-            className="flex flex-col gap-1 w-1/5"
+            className="flex flex-col gap-1 w-1/4"
+            onChange={(e) => setDependents(e.target.value)}
           />
-          <div className="flex flex-wrap gap-x-4">
-            <Input
-              type="text"
-              label={`dependentName`}
-              innerText="Nome do dependente"
-              placeholder=""
-            />
-            <Input
-              type="phone"
-              label={`dependentPhone`}
-              innerText="Telefone do dependente"
-              placeholder=""
-            />
-            <Input
-              type="date"
-              label={`dependentBirth`}
-              innerText="Data de nascimento do dependente"
-              placeholder=""
-            />
-          </div>
+          {dependents !== "0" &&
+            (() => {
+              const dependentInputs = [];
+
+              for (let i = 0; i < Number(dependents); i++) {
+                dependentInputs.push(
+                  <div className="flex flex-wrap gap-x-4" key={i}>
+                    <Input
+                      type="text"
+                      label={`dependentName${i}`}
+                      innerText="Nome do dependente"
+                      placeholder="Nome"
+                    />
+                    <Input
+                      type="phone"
+                      label={`dependentPhone${i}`}
+                      innerText="Telefone do dependente"
+                      placeholder="(18) 99999-9999"
+                    />
+                    <Input
+                      type="date"
+                      label={`dependentBirth${i}`}
+                      innerText="Data de nascimento do dependente"
+                      placeholder=""
+                    />
+                  </div>
+                );
+              }
+
+              return dependentInputs;
+            })()}
+
           <input
             type="submit"
             value="Cadastrar"

@@ -58,7 +58,7 @@
 
 # Funções da página de cadastro
 - [x] definir campos required
-- [ ] definir lógicas de campos que aparecem quando necessários
+- [x] definir lógicas de campos que aparecem quando necessários
 - [ ] definir lógicas de envio para o banco de dados
 
 # Funções da página de login
