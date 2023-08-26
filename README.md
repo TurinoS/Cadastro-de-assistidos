@@ -50,13 +50,14 @@
 # Funções da página inicial
 - [x] Montar tabela com os dados do banco de dados
 - [x] Ao clicar na linha da tabela redireciona para página do assistido através do id
-- [ ] Deletar linha da tabela deletando do banco de dados
+- [x] Deletar linha da tabela deletando do banco de dados
+- [x] definir pesquisa para filtrar nomes
 
 # Funções da página de dados do assistido
 - [x] receber dados do banco de dados e imprimir de acordo com o id na url
 
 # Funções da página de cadastro
-- [ ] definir campos required
+- [x] definir campos required
 - [ ] definir lógicas de campos que aparecem quando necessários
 - [ ] definir lógicas de envio para o banco de dados
 

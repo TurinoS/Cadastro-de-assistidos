@@ -11,10 +11,10 @@ type Beneficiary = {
   cadastroUnico: string;
   nascimento: string;
   CEP: string;
-  rua: string,
-        n: string,
-        bairro: string,
-        cidade: string,
+  rua: string;
+  n: string;
+  bairro: string;
+  cidade: string;
   nomeDaMae: string;
   nomeDoPai: string;
   estadoCivil: string;
@@ -32,47 +32,64 @@ type Beneficiary = {
   ];
   historico: [
     {
-        data: string;
-        descricao: string;
+      data: string;
+      descricao: string;
     }
   ];
 };
 
 type AppContextType = {
-    beneficiaries: Beneficiary[];
-    removeBeneficiary: (id: number) => void;
+  beneficiaries: Beneficiary[];
+  allBeneficiaries: Beneficiary[];
+  setBeneficiaries: React.Dispatch<React.SetStateAction<Beneficiary[]>>;
+  removeBeneficiary: (id: number) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
-    beneficiaries: [],
-    removeBeneficiary: () => {},
+  beneficiaries: [],
+  allBeneficiaries: [],
+  setBeneficiaries: () => {},
+  removeBeneficiary: () => {},
 });
 
 export function AppcontextProvider({ children }: { children: ReactNode }) {
-    const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([])
+  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
+  const [allBeneficiaries, setAllBeneficiaries] = useState<Beneficiary[]>([]);
 
-    useEffect(() => {
-        async function fetchData() {
-          const data = await fetch(`http://localhost:5000/assistidos`);
-          const dataJason = await data.json();
-          setBeneficiaries(dataJason);
-        }
-        fetchData();
-      }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await fetch(`http://localhost:5000/assistidos`);
+      const dataJason = await data.json();
+      setBeneficiaries(dataJason);
+      setAllBeneficiaries(dataJason)
+    }
+    fetchData();
+  }, []);
 
-      const removeBeneficiary = async (id: number) => {
-        try {
-          await fetch(`http://localhost:5000/assistidos/${id}`, {
-            method: "DELETE",
-          });
-    
-          setBeneficiaries((prevBeneficiaries) =>
-            prevBeneficiaries.filter((beneficiary) => beneficiary.id !== id)
-          );
-        } catch (error) {
-          console.error("Erro ao remover o beneficiário:", error);
-        }
-      };
+  const removeBeneficiary = async (id: number) => {
+    try {
+      await fetch(`http://localhost:5000/assistidos/${id}`, {
+        method: "DELETE",
+      });
 
-  return <AppContext.Provider value={{ beneficiaries, removeBeneficiary }}>{children}</AppContext.Provider>;
+      setBeneficiaries((prevBeneficiaries) =>
+        prevBeneficiaries.filter((beneficiary) => beneficiary.id !== id)
+      );
+    } catch (error) {
+      console.error("Erro ao remover o beneficiário:", error);
+    }
+  };
+
+  return (
+    <AppContext.Provider
+      value={{
+        beneficiaries,
+        allBeneficiaries,
+        setBeneficiaries,
+        removeBeneficiary,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 }

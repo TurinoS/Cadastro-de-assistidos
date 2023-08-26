@@ -5,6 +5,7 @@ interface InputProps {
   innerText: string;
   className?: string;
   classNameInput?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
 export default function Input({
@@ -13,7 +14,8 @@ export default function Input({
   placeholder,
   innerText,
   className = "flex flex-col gap-1",
-  classNameInput
+  classNameInput,
+  onChange
 }: InputProps) {
   return (
     <div className={`${className}`}>
@@ -27,6 +29,7 @@ export default function Input({
         name={label}
         id={label}
         placeholder={placeholder}
+        onChange={onChange}
       />
     </div>
   );

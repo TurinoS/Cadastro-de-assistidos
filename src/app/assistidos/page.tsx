@@ -3,11 +3,32 @@
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import TableRow from "@/components/TableRow";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "@/context/AppContext";
 
 export default function Beneficiaries() {
-  const { beneficiaries } = useContext(AppContext)
+  const { beneficiaries, setBeneficiaries, allBeneficiaries } = useContext(AppContext);
+  const [searchText, setSearchText] = useState("");
+
+  const search = (name: string) => {
+    setBeneficiaries(allBeneficiaries);
+
+    if(searchText.length > 2) {
+    const filteredBeneficiaries = allBeneficiaries.filter((beneficiary) =>
+      beneficiary.nome.toLowerCase().includes(name.toLowerCase())
+    );
+    setBeneficiaries(filteredBeneficiaries);
+    } else {
+      const filteredBeneficiaries = allBeneficiaries;
+      setBeneficiaries(filteredBeneficiaries);
+    }
+    console.log(allBeneficiaries)
+  };
+  
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+  };
+
   return (
     <>
       <Header />
@@ -20,10 +41,12 @@ export default function Beneficiaries() {
             placeholder="Digite o nome do assistido"
             className="flex gap-4 items-center w-full"
             classNameInput="w-full"
+            onChange={handleSearchChange}
           />
           <button
             className="rounded-xl font-bold bg-[var(--dark)] text-[var(--light)] py-2 px-4 hover:text-[var(--orange)] transition duration-400 hover:scale-105"
             style={{ boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.4)" }}
+            onClick={() => search(searchText)}
           >
             Pesquisar
           </button>
@@ -45,8 +68,8 @@ export default function Beneficiaries() {
                     </th>
                 </tr>
             </thead>
-            {beneficiaries.map((beneficiary) => (
-              <TableRow birth={beneficiary.nascimento} name={beneficiary.nome} id={beneficiary.id} CPF={beneficiary.CPF} key={beneficiary.id} />
+            {beneficiaries.map((beneficiaries) => (
+              <TableRow birth={beneficiaries.nascimento} name={beneficiaries.nome} id={beneficiaries.id} CPF={beneficiaries.CPF} key={beneficiaries.id} />
             ))}
           
         </table>
