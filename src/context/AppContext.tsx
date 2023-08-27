@@ -42,6 +42,7 @@ type Beneficiary = {
 type AppContextType = {
   beneficiaries: Beneficiary[];
   allBeneficiaries: Beneficiary[];
+  setAddBeneficiary: React.Dispatch<React.SetStateAction<boolean>>;
   setBeneficiaries: React.Dispatch<React.SetStateAction<Beneficiary[]>>;
   removeBeneficiary: (id: number) => void;
 };
@@ -49,6 +50,7 @@ type AppContextType = {
 export const AppContext = createContext<AppContextType>({
   beneficiaries: [],
   allBeneficiaries: [],
+  setAddBeneficiary: () => {},
   setBeneficiaries: () => {},
   removeBeneficiary: () => {},
 });
@@ -56,6 +58,7 @@ export const AppContext = createContext<AppContextType>({
 export function AppcontextProvider({ children }: { children: ReactNode }) {
   const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
   const [allBeneficiaries, setAllBeneficiaries] = useState<Beneficiary[]>([]);
+  const [addBeneficiary, setAddBeneficiary] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -65,7 +68,7 @@ export function AppcontextProvider({ children }: { children: ReactNode }) {
       setAllBeneficiaries(dataJason);
     }
     fetchData();
-  }, []);
+  }, [addBeneficiary]);
 
   const removeBeneficiary = async (id: number) => {
     try {
@@ -86,6 +89,7 @@ export function AppcontextProvider({ children }: { children: ReactNode }) {
       value={{
         beneficiaries,
         allBeneficiaries,
+        setAddBeneficiary,
         setBeneficiaries,
         removeBeneficiary,
       }}

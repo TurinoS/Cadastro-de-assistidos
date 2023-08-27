@@ -2,11 +2,14 @@
 
 import Header from "@/components/Header";
 import Input from "@/components/Input";
-import { useState } from "react";
+import { AppContext } from "@/context/AppContext";
+import { useState, useContext } from "react";
 
 export default function Register() {
+  const { setAddBeneficiary } = useContext(AppContext)
   const [civilState, setCivilState] = useState("");
   const [dependents, setDependents] = useState("0");
+  const [success, setSuccess] = useState(false)
 
   const [newBeneficiary, setNewBeneficiary] = useState({
     nome: "",
@@ -59,9 +62,9 @@ export default function Register() {
         },
         body: JSON.stringify(data),
       });
-  
+      
       if (response.ok) {
-        console.log("Data submitted successfully!");
+        setSuccess(true);
       } else {
         console.error("Failed to submit data");
       }
@@ -77,6 +80,7 @@ export default function Register() {
         <form className="flex flex-col gap-x-4" onSubmit={(e) => {
             e.preventDefault();
             sendBeneficiaryDataToServer(newBeneficiary);
+            setAddBeneficiary(false);
           }}>
           <h2 className="text-3xl font-bold mb-2">Dados</h2>
           <div className="flex flex-wrap gap-x-4">
@@ -267,14 +271,19 @@ export default function Register() {
 
               return dependentInputs;
             })()}
-
+          <div className="flex gap-10 items-center">
           <input
             type="submit"
             value="Cadastrar"
             className="self-start px-14 py-4 mt-10 border-2 border-[var(--dark)] rounded-xl font-bold bg-[var(--medium)] text-[var(--dark)] hover:bg-[var(--dark)] hover:text-[var(--orange)] hover:border-[var(--orange)] transition duration-400"
             style={{ boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.4)" }}
-            onClick={() => setNewBeneficiary({ ...newBeneficiary, dependentes: newDependents })}
+            onClick={() => {
+              setNewBeneficiary({ ...newBeneficiary, dependentes: newDependents });
+              setAddBeneficiary(true);
+            }}
           />
+          {success && <p className="self-start px-8 py-2 mt-12 border-2 border-[var(--dark-green)] rounded-xl font-bold bg-[var(--light-green)] text-[var(--dark-green)]">Cadastro bem sucedido</p>}
+          </div>
         </form>
       </main>
     </>

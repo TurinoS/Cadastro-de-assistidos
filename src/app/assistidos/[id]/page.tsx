@@ -32,7 +32,7 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
             className="bg-[var(--bg)] py-2 px-4 rounded-3xl text-2xl"
             style={{ boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.25)" }}
           >
-            {beneficiary.nascimento}
+            {beneficiary.nascimento.replace(/-/g, '/')}
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
                   />
                   <InfoField
                     name="Data de nascimento"
-                    info={beneficiary.conjuge.nascimento}
+                    info={beneficiary.conjuge.nascimento.replace(/-/g, '/')}
                   />
                 </>
               )}
@@ -99,7 +99,7 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
                   <div key={index} className="flex gap-2 flex-wrap">
                     <InfoField name="Nome" info={dependente.nome} />
                     <InfoField name="Telefone" info={dependente.telefone} />
-                    <InfoField name="Nascimento" info={dependente.nascimento} />
+                    <InfoField name="Nascimento" info={dependente.nascimento.replace(/-/g, '/')} />
                   </div>
                 }</>
                 ))}

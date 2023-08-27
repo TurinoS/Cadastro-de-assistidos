@@ -11,7 +11,7 @@ export default function Header({ loginPage }: HeaderProps) {
   const pathname  = usePathname()
 
   return (
-    <header className="flex items-center justify-between px-16 py-4 bg-[var(--dark)] font-bold" style={{boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)"}}>
+    <header className="flex items-center justify-between px-16 py-4 bg-[var(--dark)] font-bold sticky top-0" style={{boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)"}}>
       <p className="text-3xl text-[var(--orange)]">
         Centro Social Santa Rita de Cássia
       </p>

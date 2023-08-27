@@ -54,7 +54,7 @@ export default function Beneficiaries() {
             Pesquisar/Resetar
           </button>
         </div>
-        <table className="my-8 border-collapse border-2 border-[var(--bg)] w-4/5">
+        <table className="my-8 border-collapse border-2 border-[var(--bg)] w-4/5 overflow-hidden">
           <thead className="bg-[var(--dark)] text-[var(--medium)]">
             <tr>
               <th className="border border-[var(--bg)] w-300 py-1">Nome</th>
