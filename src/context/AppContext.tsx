@@ -23,6 +23,7 @@ type Beneficiary = {
     telefone: string;
     nascimento: string;
   };
+  numeroDeDependentes: string;
   dependentes: [
     {
       nome: string;

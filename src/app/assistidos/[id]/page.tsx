@@ -90,16 +90,18 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
               )}
             </div>
           </div>
-          {beneficiary.dependentes.length > 0 && (
+          {beneficiary.dependentes.some((dependente) => dependente.nome.trim() !== "") && (
             <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
               <h3 className="font-bold text-2xl pb-2">Dependentes</h3>
               <div className="flex flex-col gap-2 flex-wrap">
                 {beneficiary.dependentes.map((dependente, index) => (
+                  <>{dependente.nome != "" &&
                   <div key={index} className="flex gap-2 flex-wrap">
                     <InfoField name="Nome" info={dependente.nome} />
                     <InfoField name="Telefone" info={dependente.telefone} />
                     <InfoField name="Nascimento" info={dependente.nascimento} />
                   </div>
+                }</>
                 ))}
               </div>
             </div>
@@ -110,14 +112,17 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
           <div className="grid grid-cols-2 gap-4" style={{ gridTemplateColumns: "2fr 1fr" }}>
             <div className="flex flex-col gap-2">
               {beneficiary.historico.map((atendimento, index) => (
+                <>
+                {atendimento.data &&
                 <div className="flex gap-1" key={index}>
                   <h4 className="p-4 bg-[var(--white)] rounded-xl font-bold">
                     {atendimento.data.replace(/-/g, '/')}
                   </h4>
                   <p className="p-4 bg-[var(--white)] rounded-xl">
-                    {atendimento.descricao}
+                    {atendimento.descricao != "" && atendimento.descricao}
                   </p>
                 </div>
+                }</>
               ))}
             </div>
             <form

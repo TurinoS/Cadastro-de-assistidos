@@ -59,7 +59,10 @@
 # Funções da página de cadastro
 - [x] definir campos required
 - [x] definir lógicas de campos que aparecem quando necessários
-- [ ] definir lógicas de envio para o banco de dados
+- [x] definir lógicas de envio para o banco de dados
+
+# Funções da página de dados do assistido
+- [ ] enviar para o banco de dados a nova consulta e data
 
 # Funções da página de login
 - [ ] Acertar nome e login redireciona para página com tabela dos assistidos

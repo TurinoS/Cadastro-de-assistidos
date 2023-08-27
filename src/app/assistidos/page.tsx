@@ -14,7 +14,7 @@ export default function Beneficiaries() {
   const search = (name: string) => {
     setBeneficiaries(allBeneficiaries);
 
-    if (searchText.length > 2) {
+    if (searchText.length > 0) {
       const filteredBeneficiaries = allBeneficiaries.filter((beneficiary) =>
         beneficiary.nome.toLowerCase().includes(name.toLowerCase())
       );
@@ -34,7 +34,7 @@ export default function Beneficiaries() {
       <Header />
       <main className="flex min-h-screen flex-col items-center p-8">
         <div
-          className="font-bold bg-[var(--medium)] text-[var(--dark)] rounded-xl grid grid-cols-2 gap-4 pl-4 pr-2 py-2 w-3/5"
+          className="font-bold bg-[var(--medium)] text-[var(--dark)] rounded-xl grid grid-cols-2 gap-4 pl-4 pr-2 py-2 w-4/5"
           style={{ gridTemplateColumns: "3fr 1fr" }}
         >
           <Input
@@ -47,14 +47,14 @@ export default function Beneficiaries() {
             onChange={handleSearchChange}
           />
           <button
-            className="rounded-xl font-bold bg-[var(--dark)] text-[var(--light)] py-2 px-4 hover:text-[var(--orange)] transition duration-400 hover:scale-105"
+            className="rounded-xl font-bold bg-[var(--dark)] text-[var(--light)] py-2 px-6 hover:text-[var(--orange)] transition duration-400 hover:scale-105"
             style={{ boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.4)" }}
             onClick={() => search(searchText)}
           >
-            Pesquisar
+            Pesquisar/Resetar
           </button>
         </div>
-        <table className="my-8 border-collapse border-2 border-[var(--bg)] w-3/5">
+        <table className="my-8 border-collapse border-2 border-[var(--bg)] w-4/5">
           <thead className="bg-[var(--dark)] text-[var(--medium)]">
             <tr>
               <th className="border border-[var(--bg)] w-300 py-1">Nome</th>
@@ -67,7 +67,7 @@ export default function Beneficiaries() {
           </thead>
           {beneficiaries.map((beneficiaries) => (
             <TableRow
-              birth={beneficiaries.nascimento}
+              birth={beneficiaries.nascimento.replace(/-/g, "/")}
               name={beneficiaries.nome}
               id={beneficiaries.id}
               CPF={beneficiaries.CPF}
