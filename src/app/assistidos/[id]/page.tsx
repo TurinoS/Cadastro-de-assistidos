@@ -205,7 +205,7 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
               ))}
             </div>
             <form
-              className="p-2 bg-[var(--dark)] rounded-lg w-1/3 flex flex-col gap-2"
+              className="p-2 mr-10 bg-[var(--dark)] rounded-lg w-1/3 flex flex-col gap-2 justify-self-end"
               style={{ height: "402px", width: "335px" }}
               onSubmit={(e) => {
                 e.preventDefault();

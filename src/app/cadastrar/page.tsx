@@ -3,13 +3,14 @@
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import { AppContext } from "@/context/AppContext";
+import Link from "next/link";
 import { useState, useContext } from "react";
 
 export default function Register() {
-  const { setAddBeneficiary } = useContext(AppContext)
+  const { setAddBeneficiary } = useContext(AppContext);
   const [civilState, setCivilState] = useState("");
   const [dependents, setDependents] = useState("0");
-  const [success, setSuccess] = useState(false)
+  const [success, setSuccess] = useState(false);
 
   const [newBeneficiary, setNewBeneficiary] = useState({
     nome: "",
@@ -29,29 +30,32 @@ export default function Register() {
     conjuge: {
       nome: "",
       telefone: "",
-      nascimento: ""
+      nascimento: "",
     },
     numeroDeDependentes: "",
     dependentes: [
       {
         nome: "",
         telefone: "",
-        nascimento: ""
+        nascimento: "",
       },
     ],
     historico: [
       {
         data: "",
-        descricao: ""
+        descricao: "",
       },
-    ]
+    ],
   });
 
-  const newDependents = Array.from({ length: Number(newBeneficiary.numeroDeDependentes) }, () => ({
-    nome: "",
-    telefone: "",
-    nascimento: "",
-  }));
+  const newDependents = Array.from(
+    { length: Number(newBeneficiary.numeroDeDependentes) },
+    () => ({
+      nome: "",
+      telefone: "",
+      nascimento: "",
+    })
+  );
 
   async function sendBeneficiaryDataToServer(data: any) {
     try {
@@ -62,7 +66,7 @@ export default function Register() {
         },
         body: JSON.stringify(data),
       });
-      
+
       if (response.ok) {
         setSuccess(true);
       } else {
@@ -77,11 +81,14 @@ export default function Register() {
     <>
       <Header />
       <main className="py-20 px-48 pt-12">
-        <form className="flex flex-col gap-x-4" onSubmit={(e) => {
+        <form
+          className="flex flex-col gap-x-4"
+          onSubmit={(e) => {
             e.preventDefault();
             sendBeneficiaryDataToServer(newBeneficiary);
             setAddBeneficiary(false);
-          }}>
+          }}
+        >
           <h2 className="text-3xl font-bold mb-2">Dados</h2>
           <div className="flex flex-wrap gap-x-4">
             <Input
@@ -89,42 +96,42 @@ export default function Register() {
               label="name"
               innerText="Nome"
               placeholder="Nome"
-              onChange={(e) => newBeneficiary.nome = e.target.value}
+              onChange={(e) => (newBeneficiary.nome = e.target.value)}
             />
             <Input
               type="date"
               label="birth"
               innerText="Data de nascimento"
               placeholder=""
-              onChange={(e) => newBeneficiary.nascimento = e.target.value}
+              onChange={(e) => (newBeneficiary.nascimento = e.target.value)}
             />
             <Input
               type="phone"
               label="phone"
               innerText="Telefone"
               placeholder="(18) 99999-9999"
-              onChange={(e) => newBeneficiary.telefone = e.target.value}
+              onChange={(e) => (newBeneficiary.telefone = e.target.value)}
             />
             <Input
               type="text"
               label="RG"
               innerText="RG"
               placeholder="12.345.678-9"
-              onChange={(e) => newBeneficiary.RG = e.target.value}
+              onChange={(e) => (newBeneficiary.RG = e.target.value)}
             />
             <Input
               type="text"
               label="CPF"
               innerText="CPF"
               placeholder="123.456.789-00"
-              onChange={(e) => newBeneficiary.CPF = e.target.value}
+              onChange={(e) => (newBeneficiary.CPF = e.target.value)}
             />
             <Input
               type="text"
               label="CU"
               innerText="CU"
               placeholder="CU12345"
-              onChange={(e) => newBeneficiary.cadastroUnico = e.target.value}
+              onChange={(e) => (newBeneficiary.cadastroUnico = e.target.value)}
             />
           </div>
 
@@ -135,46 +142,52 @@ export default function Register() {
               label="CEP"
               innerText="CEP"
               placeholder="12.345-678"
-              onChange={(e) => newBeneficiary.CEP = e.target.value}
+              onChange={(e) => (newBeneficiary.CEP = e.target.value)}
             />
             <Input
               type="text"
               label="street"
               innerText="Rua"
               placeholder="Rua Prudente de Moraes"
-              onChange={(e) => newBeneficiary.rua = e.target.value}
+              onChange={(e) => (newBeneficiary.rua = e.target.value)}
             />
-            <Input type="text" label="house" innerText="nº" placeholder="712" onChange={(e) => newBeneficiary.n = e.target.value} />
+            <Input
+              type="text"
+              label="house"
+              innerText="nº"
+              placeholder="712"
+              onChange={(e) => (newBeneficiary.n = e.target.value)}
+            />
             <Input
               type="text"
               label="neighborhood"
               innerText="Bairro"
               placeholder="Vila Maristela"
-              onChange={(e) => newBeneficiary.bairro = e.target.value}
+              onChange={(e) => (newBeneficiary.bairro = e.target.value)}
             />
             <Input
               type="text"
               label="city"
               innerText="Cidade"
               placeholder="Presidente Prudente"
-              onChange={(e) => newBeneficiary.cidade = e.target.value}
+              onChange={(e) => (newBeneficiary.cidade = e.target.value)}
             />
-            </div>
-            <h2 className="text-3xl font-bold mb-2 mt-10">Nome dos pais</h2>
+          </div>
+          <h2 className="text-3xl font-bold mb-2 mt-10">Nome dos pais</h2>
           <div className="flex flex-wrap gap-x-4">
             <Input
               type="text"
               label="mothersName"
               innerText="Nome da mãe"
               placeholder="Nome"
-              onChange={(e) => newBeneficiary.nomeDaMae = e.target.value}
+              onChange={(e) => (newBeneficiary.nomeDaMae = e.target.value)}
             />
             <Input
               type="text"
               label="fathersName"
               innerText="Nome do pai"
               placeholder="Nome"
-              onChange={(e) => newBeneficiary.nomeDoPai = e.target.value}
+              onChange={(e) => (newBeneficiary.nomeDoPai = e.target.value)}
             />
           </div>
 
@@ -206,21 +219,25 @@ export default function Register() {
                 label="spouseName"
                 innerText="Nome do cônjuge"
                 placeholder="Nome"
-                onChange={(e) => newBeneficiary.conjuge.nome = e.target.value}
+                onChange={(e) => (newBeneficiary.conjuge.nome = e.target.value)}
               />
               <Input
                 type="phone"
                 label="spousePhone"
                 innerText="Telefone do cônjuge"
                 placeholder="(18) 99999-9999"
-                onChange={(e) => newBeneficiary.conjuge.telefone = e.target.value}
+                onChange={(e) =>
+                  (newBeneficiary.conjuge.telefone = e.target.value)
+                }
               />
               <Input
                 type="date"
                 label="spouseBirth"
                 innerText="Data de nascimento do cônjuge"
                 placeholder=""
-                onChange={(e) => newBeneficiary.conjuge.nascimento = e.target.value}
+                onChange={(e) =>
+                  (newBeneficiary.conjuge.nascimento = e.target.value)
+                }
               />
             </div>
           )}
@@ -249,21 +266,25 @@ export default function Register() {
                       label={`dependentName${i}`}
                       innerText="Nome do dependente"
                       placeholder="Nome"
-                      onChange={(e) => newDependents[i].nome = e.target.value}
+                      onChange={(e) => (newDependents[i].nome = e.target.value)}
                     />
                     <Input
                       type="phone"
                       label={`dependentPhone${i}`}
                       innerText="Telefone do dependente"
                       placeholder="(18) 99999-9999"
-                      onChange={(e) => newDependents[i].telefone = e.target.value}
+                      onChange={(e) =>
+                        (newDependents[i].telefone = e.target.value)
+                      }
                     />
                     <Input
                       type="date"
                       label={`dependentBirth${i}`}
                       innerText="Data de nascimento do dependente"
                       placeholder=""
-                      onChange={(e) => newDependents[i].nascimento = e.target.value}
+                      onChange={(e) =>
+                        (newDependents[i].nascimento = e.target.value)
+                      }
                     />
                   </div>
                 );
@@ -272,17 +293,28 @@ export default function Register() {
               return dependentInputs;
             })()}
           <div className="flex gap-10 items-center">
-          <input
-            type="submit"
-            value="Cadastrar"
-            className="self-start px-14 py-4 mt-10 border-2 border-[var(--dark)] rounded-xl font-bold bg-[var(--medium)] text-[var(--dark)] hover:bg-[var(--dark)] hover:text-[var(--orange)] hover:border-[var(--orange)] transition duration-400"
-            style={{ boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.4)" }}
-            onClick={() => {
-              setNewBeneficiary({ ...newBeneficiary, dependentes: newDependents });
-              setAddBeneficiary(true);
-            }}
-          />
-          {success && <p className="self-start px-8 py-2 mt-12 border-2 border-[var(--dark-green)] rounded-xl font-bold bg-[var(--light-green)] text-[var(--dark-green)]">Cadastro bem sucedido</p>}
+            {!success ? (
+              <input
+                type="submit"
+                value="Cadastrar"
+                className="self-start px-14 py-4 mt-10 border-2 border-[var(--dark)] rounded-xl font-bold bg-[var(--medium)] text-[var(--dark)] hover:bg-[var(--dark)] hover:text-[var(--orange)] hover:border-[var(--orange)] transition duration-400"
+                style={{ boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.4)" }}
+                onClick={() => {
+                  setNewBeneficiary({
+                    ...newBeneficiary,
+                    dependentes: newDependents,
+                  });
+                  setAddBeneficiary(true);
+                }}
+              />
+            ) : (
+              <Link
+                href="/assistidos"
+                className="self-start px-8 py-4 mt-12 border-2 border-[var(--dark-green)] rounded-xl font-bold bg-[var(--light-green)] text-[var(--dark-green)] hover:bg-[var(--lighter-green)]"
+              >
+                Retornar à lista de assistidos
+              </Link>
+            )}
           </div>
         </form>
       </main>

@@ -6,6 +6,7 @@ interface InputProps {
   className?: string;
   classNameInput?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  value?: string;
 }
 
 export default function Input({
