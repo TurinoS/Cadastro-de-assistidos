@@ -59,7 +59,7 @@ export default function Register() {
 
   async function sendBeneficiaryDataToServer(data: any) {
     try {
-      const response = await fetch("http://localhost:5000/assistidos", {
+      const response = await fetch("https://ancient-occipital-gigantoraptor.glitch.me/assistidos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

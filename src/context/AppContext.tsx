@@ -62,7 +62,7 @@ export function AppcontextProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await fetch(`http://localhost:5000/assistidos`);
+      const data = await fetch(`http://localhost:5000/assistidoshttps://ancient-occipital-gigantoraptor.glitch.me/assistidos`);
       const dataJason = await data.json();
       setBeneficiaries(dataJason);
       setAllBeneficiaries(dataJason);
@@ -72,7 +72,7 @@ export function AppcontextProvider({ children }: { children: ReactNode }) {
 
   const removeBeneficiary = async (id: number) => {
     try {
-      await fetch(`http://localhost:5000/assistidos/${id}`, {
+      await fetch(`https://ancient-occipital-gigantoraptor.glitch.me/assistidos/${id}`, {
         method: "DELETE",
       });
 

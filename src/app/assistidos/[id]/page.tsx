@@ -37,7 +37,7 @@ async function addHistoryToBeneficiary(beneficiaryToUpdate: any, newHistory: str
 
     beneficiaryToUpdate.historico.push(historyItem);
 
-    const updateResponse = await fetch(`http://localhost:5000/assistidos/${beneficiaryToUpdate.id}`, {
+    const updateResponse = await fetch(`https://ancient-occipital-gigantoraptor.glitch.me/assistidos/${beneficiaryToUpdate.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
       ) as Beneficiary['historico'];
 
       const updateResponse = await fetch(
-        `http://localhost:5000/assistidos/${beneficiary.id}`,
+        `https://ancient-occipital-gigantoraptor.glitch.me/assistidos/${beneficiary.id}`,
         {
           method: "PUT",
           headers: {
