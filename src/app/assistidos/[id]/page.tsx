@@ -2,7 +2,7 @@
 
 import Header from "@/components/Header";
 import InfoField from "@/components/InfoField";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext, Beneficiary } from "@/context/AppContext";
 
 interface BeneficiaryPageProps {
@@ -15,6 +15,11 @@ export default function BeneficiaryPage({ params }: BeneficiaryPageProps) {
   const { beneficiaries } = useContext(AppContext);
   const [newDate, setNewDate] = useState('');
   const [newHistory, setNewHistory] = useState('');
+  const [historyUpdated, setHistoryUpdated] = useState(false)
+
+  useEffect(() => {
+    setHistoryUpdated(false);
+  }, [historyUpdated]);
 
   const beneficiary = beneficiaries.find((b) => b.id === Number(params.id));
 
@@ -84,7 +89,6 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
     console.error("Ocorreu um erro:", error);
   }
 }
-
 
   return (
     <>
@@ -189,7 +193,10 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
                   </p>
                   <button 
                     className="h-6 w-6 bg-[var(--white)] rounded-xl font-bold hover:bg-[var(--light-red)] text-center"
-                    onClick={() => removeHistoryFromBeneficiary(atendimento)}
+                    onClick={() => {
+                      removeHistoryFromBeneficiary(atendimento);
+                      setHistoryUpdated(true);
+                    }}
                   >
                     x
                   </button>
@@ -203,6 +210,9 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSubmit();
+                setHistoryUpdated(true);
+                setNewHistory('');
+                setNewDate('');
               }}
             >
               <div className="flex flex-col gap-1">
@@ -218,6 +228,7 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
                   name="date"
                   id="date"
                   onChange={(e) => setNewDate(e.target.value)}
+                  value={newDate}
                 />
               </div>
               <textarea
@@ -225,6 +236,7 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
                 rows={10}
                 className="px-4 py-2 rounded-xl"
                 onChange={(e) => setNewHistory(e.target.value)}
+                value={newHistory}
               />
               <input
                 type="submit"
