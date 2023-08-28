@@ -65,7 +65,7 @@ export default function Beneficiaries() {
               <th className="border border-[var(--bg)] py-2 px-4">X</th>
             </tr>
           </thead>
-          {beneficiaries.map((beneficiaries) => (
+          {beneficiaries.slice().reverse().map((beneficiaries) => (
             <TableRow
               birth={beneficiaries.nascimento.replace(/-/g, "/")}
               name={beneficiaries.nome}

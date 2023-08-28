@@ -165,52 +165,6 @@
       "conjuge": null,
       "dependentes": [],
       "historico": []
-    },
-    {
-      "nome": "Paulo Turino Silva",
-      "telefone": "(18) 99666-7708",
-      "RG": "48.298.451-x",
-      "CPF": "418.078.668-07",
-      "cadastroUnico": "CU12345",
-      "nascimento": "1994-11-06",
-      "CEP": "19020-520",
-      "rua": "Rua 12 de Outubro",
-      "n": "1153",
-      "bairro": "Vila Dubus",
-      "cidade": "Presidente Prudente",
-      "nomeDaMae": "Maria Regina Turino da Silva",
-      "nomeDoPai": "Luiz Carlos da Silva",
-      "estadoCivil": "Casado",
-      "conjuge": {
-        "nome": "Giovana Miti Aibara Paschoal",
-        "telefone": "(18) 99999-9999",
-        "nascimento": "1994-05-25"
-      },
-      "numeroDeDependentes": "3",
-      "dependentes": [
-        {
-          "nome": "Carlinho Pasquali Silva",
-          "telefone": "(18) 99999-9999",
-          "nascimento": "2023-08-08"
-        },
-        {
-          "nome": "marquinho Pasquali Silva",
-          "telefone": "(18) 99999-9999",
-          "nascimento": "2023-08-16"
-        },
-        {
-          "nome": "luana Pasquali Silva",
-          "telefone": "(18) 99999-9999",
-          "nascimento": "2023-08-22"
-        }
-      ],
-      "historico": [
-        {
-          "data": "",
-          "descricao": ""
-        }
-      ],
-      "id": 8
     }
   ]
 }

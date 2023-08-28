@@ -76,7 +76,7 @@ export default function Register() {
   return (
     <>
       <Header />
-      <main className="p-20 pt-12">
+      <main className="py-20 px-48 pt-12">
         <form className="flex flex-col gap-x-4" onSubmit={(e) => {
             e.preventDefault();
             sendBeneficiaryDataToServer(newBeneficiary);

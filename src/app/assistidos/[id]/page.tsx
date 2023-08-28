@@ -23,7 +23,7 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[var(--light)] p-4">
+      <main className="min-h-screen bg-[var(--light)] py-4 px-24">
         <div className="flex justify-center items-center gap-6 pb-6">
           <h2 className="text-4xl font-bold text-center text-[var(--dark)]">
             {beneficiary.nome}
