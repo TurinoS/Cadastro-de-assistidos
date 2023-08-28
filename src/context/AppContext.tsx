@@ -2,7 +2,7 @@
 
 import { ReactNode, createContext, useEffect, useState } from "react";
 
-type Beneficiary = {
+export type Beneficiary = {
   id: number;
   nome: string;
   telefone: string;

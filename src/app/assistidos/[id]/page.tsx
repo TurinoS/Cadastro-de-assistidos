@@ -2,23 +2,89 @@
 
 import Header from "@/components/Header";
 import InfoField from "@/components/InfoField";
-import { useContext } from "react";
-import { AppContext } from "@/context/AppContext";
+import { useContext, useState } from "react";
+import { AppContext, Beneficiary } from "@/context/AppContext";
 
-interface BeneficiaryProps {
+interface BeneficiaryPageProps {
   params: {
     id: string;
   };
 }
 
-export default function Beneficiary({ params }: BeneficiaryProps) {
+export default function BeneficiaryPage({ params }: BeneficiaryPageProps) {
   const { beneficiaries } = useContext(AppContext);
+  const [newDate, setNewDate] = useState('');
+  const [newHistory, setNewHistory] = useState('');
 
   const beneficiary = beneficiaries.find((b) => b.id === Number(params.id));
 
   if (!beneficiary) {
-    return <div>Assistido não encontrado.</div>;
+    return <div className="text-4xl text-center mt-20">Carregando...</div>;
   }
+
+async function addHistoryToBeneficiary(beneficiaryToUpdate: any, newHistory: string, newDate: string) {
+  try {
+    
+    const historyItem = {
+      data: newDate,
+      descricao: newHistory,
+    };
+
+    beneficiaryToUpdate.historico.push(historyItem);
+
+    const updateResponse = await fetch(`http://localhost:5000/assistidos/${beneficiaryToUpdate.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(beneficiaryToUpdate),
+    });
+
+    if (updateResponse.ok) {
+      console.log("Histórico adicionado com sucesso!");
+    } else {
+      console.error("Falha ao adicionar histórico");
+    }
+  } catch (error) {
+    console.error("Ocorreu um erro:", error);
+  }
+}
+
+const handleSubmit = async () => {
+  await addHistoryToBeneficiary(beneficiary, newHistory, newDate);
+};
+
+async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
+  try {
+    if (beneficiary) {
+      beneficiary.historico  = beneficiary.historico.filter(
+        (item: any) => item.data !== historyItemToRemove.data || item.descricao !== historyItemToRemove.descricao
+      ) as Beneficiary['historico'];
+
+      const updateResponse = await fetch(
+        `http://localhost:5000/assistidos/${beneficiary.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(beneficiary),
+        }
+      );
+
+      if (updateResponse.ok) {
+        console.log("Histórico removido com sucesso!");
+      } else {
+        console.error("Falha ao remover histórico");
+      }
+    } else {
+      console.error("Beneficiário não definido");
+    }
+  } catch (error) {
+    console.error("Ocorreu um erro:", error);
+  }
+}
+
 
   return (
     <>
@@ -111,7 +177,7 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
           <h3 className="font-bold text-3xl pb-2 text-center">Histórico</h3>
           <div className="grid grid-cols-2 gap-4" style={{ gridTemplateColumns: "2fr 1fr" }}>
             <div className="flex flex-col gap-2">
-              {beneficiary.historico.map((atendimento, index) => (
+              {beneficiary.historico.slice().reverse().map((atendimento, index) => (
                 <>
                 {atendimento.data &&
                 <div className="flex gap-1" key={index}>
@@ -121,6 +187,12 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
                   <p className="p-4 bg-[var(--white)] rounded-xl">
                     {atendimento.descricao != "" && atendimento.descricao}
                   </p>
+                  <button 
+                    className="h-6 w-6 bg-[var(--white)] rounded-xl font-bold hover:bg-[var(--light-red)] text-center"
+                    onClick={() => removeHistoryFromBeneficiary(atendimento)}
+                  >
+                    x
+                  </button>
                 </div>
                 }</>
               ))}
@@ -128,6 +200,10 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
             <form
               className="p-2 bg-[var(--dark)] rounded-lg w-1/3 flex flex-col gap-2"
               style={{ height: "402px", width: "335px" }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
             >
               <div className="flex flex-col gap-1">
                 <label
@@ -141,12 +217,14 @@ export default function Beneficiary({ params }: BeneficiaryProps) {
                   type="date"
                   name="date"
                   id="date"
+                  onChange={(e) => setNewDate(e.target.value)}
                 />
               </div>
               <textarea
                 placeholder="Descreva o atendimento"
                 rows={10}
                 className="px-4 py-2 rounded-xl"
+                onChange={(e) => setNewHistory(e.target.value)}
               />
               <input
                 type="submit"

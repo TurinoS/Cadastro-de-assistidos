@@ -124,7 +124,12 @@
       "estadoCivil": "Solteiro",
       "conjuge": null,
       "dependentes": [],
-      "historico": []
+      "historico": [
+        {
+          "data": "2023-08-03",
+          "descricao": "sakjbaskjfbakfasikjfasjfhasfasfasfasfasfasfasfasfsafasfasfasfasfsafasfasfasfasfasfasf"
+        }
+      ]
     },
     {
       "id": 6,
@@ -164,7 +169,12 @@
       "estadoCivil": "Solteiro",
       "conjuge": null,
       "dependentes": [],
-      "historico": []
+      "historico": [
+        {
+          "data": "2023-08-28",
+          "descricao": "Doada uma sexta básica para a família de 8 pessoas e agendada uma visita para avaliar o nível da necessidade."
+        }
+      ]
     }
   ]
 }
