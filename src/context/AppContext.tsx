@@ -16,7 +16,9 @@ export type Beneficiary = {
   bairro: string;
   cidade: string;
   nomeDaMae: string;
-  nomeDoPai: string;
+  ocupacao: string;
+  renda: string;
+  situacao: string;
   estadoCivil: string;
   conjuge: {
     nome: string;

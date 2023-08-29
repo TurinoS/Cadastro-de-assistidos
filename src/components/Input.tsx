@@ -17,6 +17,7 @@ export default function Input({
   className = "flex flex-col gap-1",
   classNameInput,
   onChange,
+  value
 }: InputProps) {
   return (
     <div className={`${className}`}>
@@ -31,6 +32,7 @@ export default function Input({
         id={label}
         placeholder={placeholder}
         onChange={onChange}
+        value={value}
       />
     </div>
   );

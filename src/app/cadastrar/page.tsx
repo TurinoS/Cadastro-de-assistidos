@@ -25,7 +25,9 @@ export default function Register() {
     bairro: "",
     cidade: "",
     nomeDaMae: "",
-    nomeDoPai: "",
+    ocupacao: "",
+    renda: "",
+    situacao: "",
     estadoCivil: "",
     conjuge: {
       nome: "",
@@ -80,7 +82,7 @@ export default function Register() {
   return (
     <>
       <Header />
-      <main className="py-20 px-48 pt-12">
+      <main className="py-20 px-36 pt-12">
         <form
           className="flex flex-col gap-x-4"
           onSubmit={(e) => {
@@ -114,6 +116,13 @@ export default function Register() {
             />
             <Input
               type="text"
+              label="mothersName"
+              innerText="Nome da mãe"
+              placeholder="Nome"
+              onChange={(e) => (newBeneficiary.nomeDaMae = e.target.value)}
+            />
+            <Input
+              type="text"
               label="RG"
               innerText="RG"
               placeholder="12.345.678-9"
@@ -129,7 +138,7 @@ export default function Register() {
             <Input
               type="text"
               label="CU"
-              innerText="CU"
+              innerText="Cadastro único"
               placeholder="CU12345"
               onChange={(e) => (newBeneficiary.cadastroUnico = e.target.value)}
             />
@@ -173,21 +182,21 @@ export default function Register() {
               onChange={(e) => (newBeneficiary.cidade = e.target.value)}
             />
           </div>
-          <h2 className="text-3xl font-bold mb-2 mt-10">Nome dos pais</h2>
+          <h2 className="text-3xl font-bold mb-2 mt-10">Renda</h2>
           <div className="flex flex-wrap gap-x-4">
-            <Input
+          <Input
               type="text"
-              label="mothersName"
-              innerText="Nome da mãe"
-              placeholder="Nome"
-              onChange={(e) => (newBeneficiary.nomeDaMae = e.target.value)}
+              label="ocupation"
+              innerText="Ocupação"
+              placeholder="Ocupação"
+              onChange={(e) => (newBeneficiary.ocupacao = e.target.value)}
             />
-            <Input
+          <Input
               type="text"
-              label="fathersName"
-              innerText="Nome do pai"
-              placeholder="Nome"
-              onChange={(e) => (newBeneficiary.nomeDoPai = e.target.value)}
+              label="income"
+              innerText="Renda familiar"
+              placeholder="0,00"
+              onChange={(e) => (newBeneficiary.renda = e.target.value)}
             />
           </div>
 

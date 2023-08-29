@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import InfoField from "@/components/InfoField";
 import { useContext, useEffect, useState } from "react";
 import { AppContext, Beneficiary } from "@/context/AppContext";
+import { differenceInYears } from 'date-fns';
 
 interface BeneficiaryPageProps {
   params: {
@@ -90,86 +91,89 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
   }
 }
 
+function calculateAge(dateOfBirth: any) {
+  const birthDate = new Date(dateOfBirth);
+  const currentDate = new Date();
+  
+  const ageInYears = differenceInYears(currentDate, birthDate);
+
+  return ageInYears.toString();
+}
+
   return (
     <>
       <Header />
       <main className="min-h-screen bg-[var(--light)] py-4 px-24">
-        <div className="flex justify-center items-center gap-6 pb-6">
-          <h2 className="text-4xl font-bold text-center text-[var(--dark)]">
-            {beneficiary.nome}
-          </h2>
-          <p
-            className="bg-[var(--bg)] py-2 px-4 rounded-3xl text-2xl"
-            style={{ boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.25)" }}
-          >
-            {beneficiary.nascimento.replace(/-/g, '/')}
-          </p>
-        </div>
+        <h2 className="text-5xl my-6 mb-10 font-bold text-center text-[var(--dark)] underline">
+          {beneficiary.nome}
+        </h2>
 
-        <div className="flex flex-wrap">
-          <div className="p-4 bg-[var(--light)] w-1/3 p-2 border-2 border-[var(--white)]">
-            <h3 className="font-bold text-2xl pb-2">Contatos</h3>
-            <div className="flex gap-2 flex-wrap">
-              <InfoField name="Telefone" info={beneficiary.telefone} />
+        <div className="flex flex-wrap border-2 border-[var(--white)] rounded-2xl">
+          <div className="p-4 bg-[var(--light)] w-full p-2">
+            <h3 className="font-bold text-2xl pb-2">Dados</h3>
+            <div className="flex gap-4 flex-col">
+              <div className="flex gap-2 flex-wrap">
+                {beneficiary.nascimento && <InfoField name="Nascimento" info={beneficiary.nascimento.replace(/-/g, '/')} />}
+                {beneficiary.telefone && <InfoField name="Telefone" info={beneficiary.telefone} />}
+                {beneficiary.nomeDaMae && <InfoField name="Nome da mãe" info={beneficiary.nomeDaMae} />}
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                {beneficiary.RG && <InfoField name="RG" info={beneficiary.RG} />}
+                {beneficiary.CPF && <InfoField name="CPF" info={beneficiary.CPF} />}
+                {beneficiary.cadastroUnico && <InfoField name="CU" info={beneficiary.cadastroUnico} />}
+              </div>
             </div>
           </div>
-          <div className="p-4 bg-[var(--light)] w-1/3 p-2 border-2 border-[var(--white)]">
-            <h3 className="font-bold text-2xl pb-2">Documentos</h3>
+          <div className="p-4 bg-[var(--light)] w-full p-2">
+            <h3 className="font-bold text-2xl pb-2">Renda</h3>
             <div className="flex gap-2 flex-wrap">
-              <InfoField name="RG" info={beneficiary.RG} />
-              <InfoField name="CPF" info={beneficiary.CPF} />
-              <InfoField name="CU" info={beneficiary.cadastroUnico} />
+              {beneficiary.ocupacao && <InfoField name="Ocupação" info={beneficiary.ocupacao} />}
+              {beneficiary.renda && <InfoField name="Renda familiar" info={beneficiary.renda} />}
             </div>
           </div>
-          <div className="p-4 bg-[var(--light)] w-1/3 p-2 border-2 border-[var(--white)]">
-            <h3 className="font-bold text-2xl pb-2">Pais</h3>
-            <div className="flex gap-2 flex-wrap">
-              <InfoField name="Nome da mãe" info={beneficiary.nomeDaMae} />
-              <InfoField name="Nome do pai" info={beneficiary.nomeDoPai} />
-            </div>
-          </div>
-          <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
+          <div className="p-4 bg-[var(--light)] w-full p-2">
             <h3 className="font-bold text-2xl pb-2">Endereço</h3>
             <div className="flex gap-2 flex-wrap">
-              <InfoField name="CEP" info={beneficiary.CEP} />
-              <InfoField name="Rua" info={beneficiary.rua} />
-              <InfoField name="nº" info={beneficiary.n} />
-              <InfoField name="Bairro" info={beneficiary.bairro} />
-              <InfoField name="Cidade" info={beneficiary.cidade} />
+              {beneficiary.CEP && <InfoField name="CEP" info={beneficiary.CEP} />}
+              {beneficiary.rua && <InfoField name="Rua" info={beneficiary.rua} />}
+              {beneficiary.n && <InfoField name="nº" info={beneficiary.n} />}
+              {beneficiary.bairro && <InfoField name="Bairro" info={beneficiary.bairro} />}
+              {beneficiary.cidade && <InfoField name="Cidade" info={beneficiary.cidade} />}
             </div>
           </div>
-          <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
+          <div className="p-4 bg-[var(--light)] w-full p-2">
             <h3 className="font-bold text-2xl pb-2">Estado civil</h3>
             <div className="flex gap-2 flex-wrap">
-              <InfoField name="Estado civil" info={beneficiary.estadoCivil} />
+              {beneficiary.estadoCivil && <InfoField name="Estado civil" info={beneficiary.estadoCivil} />}
               {beneficiary.estadoCivil === "Casado" && (
                 <>
-                  <InfoField
+                  {beneficiary.conjuge.nome && <InfoField
                     name="Nome (cônjuge)"
                     info={beneficiary.conjuge.nome}
-                  />
-                  <InfoField
+                  />}
+                  {beneficiary.conjuge.telefone && <InfoField
                     name="Telefone (cônjuge)"
                     info={beneficiary.conjuge.telefone}
-                  />
-                  <InfoField
+                  />}
+                  {beneficiary.conjuge.nascimento && <InfoField
                     name="Data de nascimento"
                     info={beneficiary.conjuge.nascimento.replace(/-/g, '/')}
-                  />
+                  />}
                 </>
               )}
             </div>
           </div>
           {beneficiary.dependentes.some((dependente) => dependente.nome.trim() !== "") && (
-            <div className="p-4 bg-[var(--light)] w-full p-2 border-2 border-[var(--white)]">
+            <div className="p-4 bg-[var(--light)] w-full p-2">
               <h3 className="font-bold text-2xl pb-2">Dependentes</h3>
               <div className="flex flex-col gap-2 flex-wrap">
                 {beneficiary.dependentes.map((dependente, index) => (
                   <>{dependente.nome != "" &&
                   <div key={index} className="flex gap-2 flex-wrap">
                     <InfoField name="Nome" info={dependente.nome} />
-                    <InfoField name="Telefone" info={dependente.telefone} />
-                    <InfoField name="Nascimento" info={dependente.nascimento.replace(/-/g, '/')} />
+                    {dependente.telefone && <InfoField name="Telefone" info={dependente.telefone} />}
+                    {dependente.nascimento && <InfoField name="Idade" info={`${calculateAge(dependente.nascimento)} anos`} />}
+                    {dependente.nascimento && <InfoField name="Nascimento" info={dependente.nascimento.replace(/-/g, '/')} />}
                   </div>
                 }</>
                 ))}
@@ -177,7 +181,7 @@ async function removeHistoryFromBeneficiary(historyItemToRemove: any) {
             </div>
           )}
         </div>
-        <div className="p-4 w-full p-2 border-2 border-[var(--white)]">
+        <div className="p-4 w-full p-2 my-4 border-2 border-[var(--white)] rounded-2xl">
           <h3 className="font-bold text-3xl pb-2 text-center">Histórico</h3>
           <div className="grid grid-cols-2 gap-4" style={{ gridTemplateColumns: "2fr 1fr" }}>
             <div className="flex flex-col gap-2">

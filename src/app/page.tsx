@@ -47,7 +47,7 @@ export default function Login() {
                 Entrar
               </Link> : 
               <p
-                className="px-4 py-2 mt-4 text-center border-2 border-[var(--white)] rounded-xl font-bold bg-gray text-[var(--white)]"
+                className="px-4 py-2 mt-4 text-center border-2 border-[var(--white)] rounded-xl font-bold text-[var(--white)]"
               >
                 Entrar
               </p>
