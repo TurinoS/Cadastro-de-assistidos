@@ -28,6 +28,17 @@ export default function Beneficiaries() {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
   };
+  
+  function formatarDataBrasileira(data: string) {
+    if (!data) return '';
+    
+    const partes = data.split('-');
+    if (partes.length !== 3) return '';
+  
+    const dataFormatada = partes.reverse().join('/');
+    return dataFormatada;
+  }
+  
 
   return (
     <>
@@ -67,7 +78,7 @@ export default function Beneficiaries() {
           </thead>
           {beneficiaries.slice().reverse().map((beneficiaries) => (
             <TableRow
-              birth={beneficiaries.nascimento.replace(/-/g, "/")}
+              birth={formatarDataBrasileira(beneficiaries.nascimento)}
               name={beneficiaries.nome}
               id={beneficiaries.id}
               CPF={beneficiaries.CPF}

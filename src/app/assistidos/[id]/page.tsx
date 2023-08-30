@@ -102,6 +102,16 @@ function calculateAge(dateOfBirth: any) {
   return ageInYears.toString();
 }
 
+function formatarDataBrasileira(data: string) {
+  if (!data) return '';
+  
+  const partes = data.split('-');
+  if (partes.length !== 3) return '';
+
+  const dataFormatada = partes.reverse().join('/');
+  return dataFormatada;
+}
+
   return (
     <>
       <Header />
@@ -123,7 +133,7 @@ function calculateAge(dateOfBirth: any) {
             <h3 className="font-bold text-2xl pb-2">Dados</h3>
             <div className="flex gap-4 flex-col">
               <div className="flex gap-2 flex-wrap">
-                {beneficiary.nascimento && <InfoField name="Nascimento" info={beneficiary.nascimento.replace(/-/g, '/')} />}
+                {beneficiary.nascimento && <InfoField name="Nascimento" info={formatarDataBrasileira(beneficiary.nascimento)} />}
                 {beneficiary.telefone && <InfoField name="Telefone" info={beneficiary.telefone} />}
                 {beneficiary.nomeDaMae && <InfoField name="Nome da mãe" info={beneficiary.nomeDaMae} />}
               </div>
@@ -167,7 +177,7 @@ function calculateAge(dateOfBirth: any) {
                   />}
                   {beneficiary.conjuge.nascimento && <InfoField
                     name="Data de nascimento"
-                    info={beneficiary.conjuge.nascimento.replace(/-/g, '/')}
+                    info={formatarDataBrasileira(beneficiary.conjuge.nascimento)}
                   />}
                 </>
               )}
@@ -183,7 +193,7 @@ function calculateAge(dateOfBirth: any) {
                     <InfoField name="Nome" info={dependente.nome} />
                     {dependente.nascimento && <InfoField name="Idade" info={`${calculateAge(dependente.nascimento)} anos`} />}
                     {dependente.telefone && <InfoField name="Telefone" info={dependente.telefone} />}
-                    {dependente.nascimento && <InfoField name="Nascimento" info={dependente.nascimento.replace(/-/g, '/')} />}
+                    {dependente.nascimento && <InfoField name="Nascimento" info={formatarDataBrasileira(dependente.nascimento)} />}
                   </div>
                 }</>
                 ))}
@@ -200,7 +210,7 @@ function calculateAge(dateOfBirth: any) {
                 {atendimento.data &&
                 <div className="flex gap-1" key={index}>
                   <h4 className="p-4 bg-[var(--white)] rounded-xl font-bold">
-                    {atendimento.data.replace(/-/g, '/')}
+                    {formatarDataBrasileira(atendimento.data)}
                   </h4>
                   <p className="p-4 bg-[var(--white)] rounded-xl">
                     {atendimento.descricao != "" && atendimento.descricao}
