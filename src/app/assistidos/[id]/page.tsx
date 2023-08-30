@@ -116,13 +116,33 @@ function formatarDataBrasileira(data: string) {
     <>
       <Header />
       <main className="min-h-screen bg-[var(--light)] py-4 px-24">
-        <div className="flex gap-6 items-center justify-center">
+        <div className="flex gap-6 items-center justify-between">
+        <div className="flex flex-col gap-1">
+          <h2 className="text-lg">Categoria: </h2>
+          <select
+                name="select"
+                defaultValue="selecione"
+                className="px-4 py-2 rounded-xl bg-[var(--bg)]"
+                style={{ boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.25)" }}
+                onChange={(e) => {
+                  beneficiary.situacao = e.target.value;
+                  handleSubmit();
+                }}
+              >
+                <option value="selecione" disabled>
+                  Selecione
+                </option>
+                <option value="Assistido">Assistido</option>
+                <option value="Emergencial">Emergencial</option>
+                <option value="Desligado">Desligado</option>
+              </select>
+            </div>
           <h2 className="text-5xl my-6 mb-10 font-bold text-[var(--dark)] underline capitalize">
             {beneficiary.nome}
           </h2>
           <Link
             href={`/cadastrar/${params.id}`}
-            className="pr-4 pl-2 py-2 border-2 border-[var(--dark)] rounded-xl font-bold bg-[var(--medium)] text-[var(--dark)] hover:bg-[var(--dark)] hover:text-[var(--orange)] hover:border-[var(--orange)] transition duration-400"
+            className="justify-self-end pr-4 pl-2 py-2 border-2 border-[var(--dark)] rounded-xl font-bold bg-[var(--medium)] text-[var(--dark)] hover:bg-[var(--dark)] hover:text-[var(--orange)] hover:border-[var(--orange)] transition duration-400"
           >
             <span className="float-left mr-2 text-2xl"><BiSolidEditAlt /></span>Editar cadastro
           </Link>

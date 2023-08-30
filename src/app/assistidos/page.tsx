@@ -28,7 +28,7 @@ export default function Beneficiaries() {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
   };
-  
+
   function formatarDataBrasileira(data: string) {
     if (!data) return '';
     
@@ -38,7 +38,6 @@ export default function Beneficiaries() {
     const dataFormatada = partes.reverse().join('/');
     return dataFormatada;
   }
-  
 
   return (
     <>
@@ -82,6 +81,7 @@ export default function Beneficiaries() {
               name={beneficiaries.nome}
               id={beneficiaries.id}
               CPF={beneficiaries.CPF}
+              situacao={beneficiaries.situacao}
               key={beneficiaries.id}
             />
           ))}

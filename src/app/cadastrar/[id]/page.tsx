@@ -137,6 +137,16 @@ export default function Register({ params }: BeneficiaryPageProps) {
       console.error("An error occurred:", error);
     }
   }
+
+  function formatarDataBrasileira(data: string) {
+    if (!data) return '';
+    
+    const partes = data.split('-');
+    if (partes.length !== 3) return '';
+  
+    const dataFormatada = partes.reverse().join('/');
+    return dataFormatada;
+  }
   
   return (
     <>
@@ -392,7 +402,7 @@ export default function Register({ params }: BeneficiaryPageProps) {
                   <div key={index} className="border-l-4 border-[var(--dark)] pl-2">
                     <p>Nome: {dependente.nome}</p>
                     {dependente.telefone && <p>Telefone: {dependente.telefone}</p>}
-                    <p>Nascimento: {dependente.nascimento.replace(/-/g, '/')}</p>
+                    <p>Nascimento: {formatarDataBrasileira(dependente.nascimento)}</p>
                   </div>
                 ))}
               </div>

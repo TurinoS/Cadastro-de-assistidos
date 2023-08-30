@@ -11,9 +11,10 @@ interface TableRowProps {
   name: string;
   birth: string;
   CPF: string;
+  situacao?: string;
 }
 
-export default function TableRow({ id, name, birth, CPF }: TableRowProps) {
+export default function TableRow({ id, name, birth, CPF, situacao}: TableRowProps) {
   const { removeBeneficiary } = useContext(AppContext);
   const [deleteWarning, setDeleteWarning] = useState(false);
 
@@ -53,7 +54,10 @@ export default function TableRow({ id, name, birth, CPF }: TableRowProps) {
       <tr className={`${deleteWarning ? "bg-[var(--light-red)]" : id % 2 === 0 ? "bg-[var(--medium)]" : "bg-[var(--light)]"} hover:bg-[var(--orange)] transition duration-400`}>
         <td className="lg:table-cell border border-[var(--bg)] capitalize">
           <Link href={`/assistidos/${id}`} style={linkStyle}>
-            {name}
+            <span className="flex justify-between font-bold">
+              {name}
+              {situacao && <span font-bold>({situacao})</span>}
+            </span>
           </Link>
         </td>
         <td className="lg:table-cell border border-[var(--bg)] text-center">
