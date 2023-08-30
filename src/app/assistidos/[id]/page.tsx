@@ -5,6 +5,8 @@ import InfoField from "@/components/InfoField";
 import { useContext, useEffect, useState } from "react";
 import { AppContext, Beneficiary } from "@/context/AppContext";
 import { differenceInYears } from 'date-fns';
+import Link from "next/link";
+import { BiSolidEditAlt } from 'react-icons/bi';
 
 interface BeneficiaryPageProps {
   params: {
@@ -104,9 +106,17 @@ function calculateAge(dateOfBirth: any) {
     <>
       <Header />
       <main className="min-h-screen bg-[var(--light)] py-4 px-24">
-        <h2 className="text-5xl my-6 mb-10 font-bold text-center text-[var(--dark)] underline">
-          {beneficiary.nome}
-        </h2>
+        <div className="flex gap-6 items-center justify-center">
+          <h2 className="text-5xl my-6 mb-10 font-bold text-[var(--dark)] underline">
+            {beneficiary.nome}
+          </h2>
+          <Link
+            href={`/cadastrar/${params.id}`}
+            className="pr-4 pl-2 py-2 border-2 border-[var(--dark)] rounded-xl font-bold bg-[var(--medium)] text-[var(--dark)] hover:bg-[var(--dark)] hover:text-[var(--orange)] hover:border-[var(--orange)] transition duration-400"
+          >
+            <span className="float-left mr-2 text-2xl"><BiSolidEditAlt /></span>Editar cadastro
+          </Link>
+        </div>
 
         <div className="flex flex-wrap border-2 border-[var(--white)] rounded-2xl">
           <div className="p-4 bg-[var(--light)] w-full p-2">
@@ -120,7 +130,7 @@ function calculateAge(dateOfBirth: any) {
               <div className="flex gap-2 flex-wrap">
                 {beneficiary.RG && <InfoField name="RG" info={beneficiary.RG} />}
                 {beneficiary.CPF && <InfoField name="CPF" info={beneficiary.CPF} />}
-                {beneficiary.cadastroUnico && <InfoField name="CU" info={beneficiary.cadastroUnico} />}
+                {beneficiary.cadastroUnico && <InfoField name="Cadastro único" info={beneficiary.cadastroUnico} />}
               </div>
             </div>
           </div>

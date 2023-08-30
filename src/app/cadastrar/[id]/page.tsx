@@ -37,7 +37,6 @@ export default function Register({ params }: BeneficiaryPageProps) {
   const [newSpousePhone, setnewSpousePhone] = useState(beneficiary?.conjuge.telefone)
   const [newSpouseBirth, setnewSpouseBirth] = useState(beneficiary?.conjuge.nascimento)
   const [newDependentsNumber, setnewDependentsNumber] = useState(beneficiary?.numeroDeDependentes)
-  const [newDependentsArray, setnewDependentsArray] = useState(beneficiary?.dependentes)
 
   const fillInputs = (data: any) => {
     setnewName(beneficiary?.nome)
@@ -59,32 +58,31 @@ export default function Register({ params }: BeneficiaryPageProps) {
     setnewSpousePhone(beneficiary?.conjuge.telefone)
     setnewSpouseBirth(beneficiary?.conjuge.nascimento)
     setnewDependentsNumber(beneficiary?.numeroDeDependentes)
-    setnewDependentsArray(beneficiary?.dependentes)
   }
 
   const [newBeneficiary, setNewBeneficiary] = useState({
-    nome: "",
-    telefone: "",
-    RG: "",
-    CPF: "",
-    cadastroUnico: "",
-    nascimento: "",
-    CEP: "",
-    rua: "",
-    n: "",
-    bairro: "",
-    cidade: "",
-    nomeDaMae: "",
-    ocupacao: "",
-    renda: "",
+    nome: beneficiary?.nome,
+    telefone: beneficiary?.telefone,
+    RG: beneficiary?.RG,
+    CPF: beneficiary?.CPF,
+    cadastroUnico: beneficiary?.cadastroUnico,
+    nascimento: beneficiary?.nascimento,
+    CEP: beneficiary?.CEP,
+    rua: beneficiary?.rua,
+    n: beneficiary?.n,
+    bairro: beneficiary?.bairro,
+    cidade: beneficiary?.cidade,
+    nomeDaMae: beneficiary?.nomeDaMae,
+    ocupacao: beneficiary?.ocupacao,
+    renda: beneficiary?.renda,
     situacao: "",
-    estadoCivil: "",
+    estadoCivil: beneficiary?.estadoCivil,
     conjuge: {
-      nome: "",
-      telefone: "",
-      nascimento: "",
+      nome: beneficiary?.conjuge.nome,
+      telefone: beneficiary?.conjuge.telefone,
+      nascimento: beneficiary?.conjuge.nascimento,
     },
-    numeroDeDependentes: "",
+    numeroDeDependentes: beneficiary?.numeroDeDependentes,
     dependentes: [
       {
         nome: "",
@@ -109,18 +107,25 @@ export default function Register({ params }: BeneficiaryPageProps) {
     })
   );
 
-  
-
   async function sendBeneficiaryDataToServer(data: any) {
     try {
-      const response = await fetch("https://ancient-occipital-gigantoraptor.glitch.me/assistidos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
+      const updatedBeneficiary = {
+        ...beneficiary,
+        ...data,
+        historico: beneficiary?.historico,
+      };
+  
+      const response = await fetch(
+        `https://ancient-occipital-gigantoraptor.glitch.me/assistidos/${params.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedBeneficiary),
+        }
+      );
+  
       if (response.ok) {
         setSuccess(true);
       } else {
@@ -130,7 +135,7 @@ export default function Register({ params }: BeneficiaryPageProps) {
       console.error("An error occurred:", error);
     }
   }
-
+  
   return (
     <>
       <Header />
@@ -380,12 +385,12 @@ export default function Register({ params }: BeneficiaryPageProps) {
           {beneficiary?.dependentes.length && beneficiary?.dependentes.length > 0 &&
             <div className="mb-4">
               <p className="font-bold">Dependentes já cadastrados:</p>
-              <div className="my-2">
+              <div className="my-2 flex gap-10 wrap">
                 {beneficiary?.dependentes.map((dependente, index) => (
-                  <div key={index}>
-                  <p>Nome: {dependente.nome}</p>
-                  {dependente.telefone && <p>Telefone: {dependente.telefone}</p>}
-                  <p>Nascimento: {dependente.nascimento.replace(/-/g, '/')}</p>
+                  <div key={index} className="border-l-4 border-[var(--dark)] pl-2">
+                    <p>Nome: {dependente.nome}</p>
+                    {dependente.telefone && <p>Telefone: {dependente.telefone}</p>}
+                    <p>Nascimento: {dependente.nascimento.replace(/-/g, '/')}</p>
                   </div>
                 ))}
               </div>
