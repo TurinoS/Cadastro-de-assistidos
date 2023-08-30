@@ -3,7 +3,6 @@
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import { AppContext } from "@/context/AppContext";
-import { set } from "date-fns";
 import Link from "next/link";
 import { useState, useContext } from "react";
 
@@ -224,7 +223,7 @@ export default function Register() {
               <option value="Viúvo(a)">Viúvo(a)</option>
             </select>
           </div>
-          {civilState === "Casado" && (
+          {civilState === "Casado(a)" && (
             <div className="flex flex-wrap gap-x-4">
               <Input
                 type="text"

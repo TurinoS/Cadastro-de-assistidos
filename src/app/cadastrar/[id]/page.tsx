@@ -355,7 +355,7 @@ export default function Register({ params }: BeneficiaryPageProps) {
               <option value="Viúvo(a)">Viúvo(a)</option>
             </select>
           </div>
-          {newCivilState === "Casado" && (
+          {newCivilState === "Casado(a)" && (
             <div className="flex flex-wrap gap-x-4">
               <Input
                 type="text"
