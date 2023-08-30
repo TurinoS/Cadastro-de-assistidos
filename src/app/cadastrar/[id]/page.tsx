@@ -15,6 +15,7 @@ interface BeneficiaryPageProps {
 export default function Register({ params }: BeneficiaryPageProps) {
   const { setAddBeneficiary, beneficiaries } = useContext(AppContext);
   const [success, setSuccess] = useState(false);
+  const [waiting, setWaiting] = useState(false);
 
   const beneficiary = beneficiaries.find((b) => b.id === Number(params.id));
 
@@ -128,6 +129,7 @@ export default function Register({ params }: BeneficiaryPageProps) {
   
       if (response.ok) {
         setSuccess(true);
+        setWaiting(false);
       } else {
         console.error("Failed to submit data");
       }
@@ -337,10 +339,10 @@ export default function Register({ params }: BeneficiaryPageProps) {
               }}
               value={newCivilState}
             >
-              <option value="Solteiro">Solteiro(a)</option>
-              <option value="Casado">Casado(a)</option>
-              <option value="Divorciado">Divorciado(a)</option>
-              <option value="viuvo">Viúvo(a)</option>
+              <option value="Solteiro(a)">Solteiro(a)</option>
+              <option value="Casado(a)">Casado(a)</option>
+              <option value="Divorciado(a)">Divorciado(a)</option>
+              <option value="Viúvo(a)">Viúvo(a)</option>
             </select>
           </div>
           {newCivilState === "Casado" && (
@@ -450,7 +452,7 @@ export default function Register({ params }: BeneficiaryPageProps) {
 
               return dependentInputs;
             })()}
-          <div className="flex gap-10 items-center">
+          <div className="flex flex-col">
             {!success ? (
               <input
                 type="submit"
@@ -463,6 +465,7 @@ export default function Register({ params }: BeneficiaryPageProps) {
                     dependentes: newDependents,
                   });
                   setAddBeneficiary(true);
+                  setWaiting(true);
                 }}
               />
             ) : (
@@ -473,6 +476,7 @@ export default function Register({ params }: BeneficiaryPageProps) {
                 Vizualizar cadastro
               </Link>
             )}
+            {waiting && <p className="">Aguarde o botão ficar verde</p>}
           </div>
         </form>
       </main>

@@ -3,6 +3,7 @@
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import { AppContext } from "@/context/AppContext";
+import { set } from "date-fns";
 import Link from "next/link";
 import { useState, useContext } from "react";
 
@@ -11,6 +12,7 @@ export default function Register() {
   const [civilState, setCivilState] = useState("");
   const [dependents, setDependents] = useState("0");
   const [success, setSuccess] = useState(false);
+  const [waiting, setWaiting] = useState(false);
 
   const [newBeneficiary, setNewBeneficiary] = useState({
     nome: "",
@@ -71,6 +73,7 @@ export default function Register() {
 
       if (response.ok) {
         setSuccess(true);
+        setWaiting(false);
       } else {
         console.error("Failed to submit data");
       }
@@ -314,8 +317,15 @@ export default function Register() {
                     dependentes: newDependents,
                   });
                   setAddBeneficiary(true);
+                  setWaiting(true);
                 }}
               />
+            ) : waiting ? (
+              <p
+                className="self-start px-8 py-4 mt-12 border-2 border-[var(--white)] rounded-xl font-bold bg-[var(--light)] text-[var(--dark)]"
+              >
+                Realizando cadastro...
+              </p>
             ) : (
               <Link
                 href="/assistidos"
