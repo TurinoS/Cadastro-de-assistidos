@@ -218,10 +218,10 @@ export default function Register() {
               <option value="selecione" disabled>
                 Selecione
               </option>
-              <option value="Solteiro">Solteiro(a)</option>
-              <option value="Casado">Casado(a)</option>
-              <option value="Divorciado">Divorciado(a)</option>
-              <option value="viuvo">Viúvo(a)</option>
+              <option value="Solteiro(a)">Solteiro(a)</option>
+              <option value="Casado(a)">Casado(a)</option>
+              <option value="Divorciado(a)">Divorciado(a)</option>
+              <option value="Viúvo(a)">Viúvo(a)</option>
             </select>
           </div>
           {civilState === "Casado" && (

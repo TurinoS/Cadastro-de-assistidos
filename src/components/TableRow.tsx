@@ -51,7 +51,7 @@ export default function TableRow({ id, name, birth, CPF }: TableRowProps) {
         </td>
       )}
       <tr className={`${deleteWarning ? "bg-[var(--light-red)]" : id % 2 === 0 ? "bg-[var(--medium)]" : "bg-[var(--light)]"} hover:bg-[var(--orange)] transition duration-400`}>
-        <td className="lg:table-cell border border-[var(--bg)]">
+        <td className="lg:table-cell border border-[var(--bg)] capitalize">
           <Link href={`/assistidos/${id}`} style={linkStyle}>
             {name}
           </Link>

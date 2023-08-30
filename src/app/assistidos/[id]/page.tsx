@@ -107,7 +107,7 @@ function calculateAge(dateOfBirth: any) {
       <Header />
       <main className="min-h-screen bg-[var(--light)] py-4 px-24">
         <div className="flex gap-6 items-center justify-center">
-          <h2 className="text-5xl my-6 mb-10 font-bold text-[var(--dark)] underline">
+          <h2 className="text-5xl my-6 mb-10 font-bold text-[var(--dark)] underline capitalize">
             {beneficiary.nome}
           </h2>
           <Link
@@ -181,8 +181,8 @@ function calculateAge(dateOfBirth: any) {
                   <>{dependente.nome != "" &&
                   <div key={index} className="flex gap-2 flex-wrap">
                     <InfoField name="Nome" info={dependente.nome} />
-                    {dependente.telefone && <InfoField name="Telefone" info={dependente.telefone} />}
                     {dependente.nascimento && <InfoField name="Idade" info={`${calculateAge(dependente.nascimento)} anos`} />}
+                    {dependente.telefone && <InfoField name="Telefone" info={dependente.telefone} />}
                     {dependente.nascimento && <InfoField name="Nascimento" info={dependente.nascimento.replace(/-/g, '/')} />}
                   </div>
                 }</>
